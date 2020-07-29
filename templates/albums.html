@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Albums</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <ul class="nav">
+        <li class="navL" id="home-btn"><a href="/">Photo Share</a></li>
+        <li class="navL"><a href="/search">Search</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="navR" id="dropdown">
+                <a href="/profile">{{ current_user.name }}</a>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/albums">Albums</a>
+                    <a href="/my_friends">Friends</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </li>
+            <li class="navR"><a href="/upload">Upload</a></li>
+        {% else %}
+            <li class="navR"><a href="/login">Log In</a></li>
+            <li class="navR"><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+
+    <form name="albums" method="post" action="/albums">
+        {% if current_user.is_authenticated %}
+            <div id="divAlbumCreate">
+                <button id="btnOpenAlbumCreate" type="button" onclick="showAlbumCreate(this.id)">Create New Album</button>
+
+                <div id="albumCreate">
+                    <input type="text" name="albumName" placeholder="Album name" required="true">
+                    <input type="submit" value="Create"/>
+                </div>
+            </div>
+            <h2>Here are your albums</h2>
+            {% if albums %}
+                <ul>
+                    {% for album in albums %}
+                        <li><a href="/album/{{ album[0] }}">{{ album[1] }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You currently do not have any albums. How about creating a new one?</p>
+            {% endif %}
+        {% else %}
+            <h2>Please <a href="/login">log in</a>.</h2>
+        {% endif %}
+        <input class="invisible" id="invAlbums" type="text" name="album_id" value="" disabled="true" style="display: none;">
+    </form>
+    <script src="static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <ul class="nav">
+        <li class="navL" id="home-btn"><a href="/">Photo Share</a></li>
+        <li class="navL"><a href="/search">Search</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="navR" id="dropdown">
+                <a href="/profile">{{ current_user.name }}</a>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/albums">Albums</a>
+                    <a href="/my_friends">Friends</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </li>
+            <li class="navR"><a href="/upload">Upload</a></li>
+        {% else %}
+            <li class="navR"><a href="/login">Log In</a></li>
+            <li class="navR"><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="title">
+            <h1>Enter your information below...</h1>
+        </div>
+        <div id="content">
+            <form method="POST" action="/register">
+                <label for="email">Email:</label>
+                <input type="email" name="email" required="true"/>
+                {% if not suppress %}
+                    <label id="invalid-email">This email is already in use, please try another one.</label>
+                {% endif %}<br/>
+                <label for="password">Password:</label>
+                <input type="password" name="password" required="true"/><br/>
+                <label for="fname">First Name:</label>
+                <input type="text" name="fname" required="true"/><br/>
+                <label for="lname">Last Name:</label>
+                <input type="text" name="lname" required="true"/><br/>
+                <label for="gender">Gender:</label>
+                <select name="gender">
+                    <option selected disabled hidden>Optional</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to disclose">Prefer not to disclose</option>
+                </select><br/>
+                <label for="dob">Date of birth:</label>
+                <input type="date" name="dob" required="true"/><br/>
+                <label for="hometown">Hometown:</label>
+                <input type="text" name="hometown" placeholder="Optional" /><br/><br/>
+                <input type="submit" value="Register"/>
+            </form>
+         </div>
+
+    <p>If you already have an account, please <a href='/login'>login</a>.</p>
+
+</body>
+</html>

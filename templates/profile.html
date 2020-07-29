@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <ul class="nav">
+        <li class="navL" id="home-btn"><a href="/">Photo Share</a></li>
+        <li class="navL"><a href="/search">Search</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="navR" id="dropdown">
+                <a href="/profile">{{ current_user.name }}</a>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/albums">Albums</a>
+                    <a href="/my_friends">Friends</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </li>
+            <li class="navR"><a href="/upload">Upload</a></li>
+        {% else %}
+            <li class="navR"><a href="/login">Log In</a></li>
+            <li class="navR"><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="info">
+        <p>{{ current_user.name }}</p>
+        {% if current_user.dob != 'None' %}
+        <p>DOB: {{ current_user.dob }}</p>
+        {% endif %}
+        {% if current_user.hometown != 'None' %}
+        <p>Hometown: {{ current_user.hometown }}</p>
+        {% endif %}
+        <p>Gender: {{ current_user.gender }}</p>
+    </div>
+
+    <ul>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/albums'>Albums</a></li>
+        <li><a href='/search_friends'>Search for Friends</a></li>
+        <li><a href='/my_friends'>My Friends</a></li>
+    </ul>
+</body>
+</html>

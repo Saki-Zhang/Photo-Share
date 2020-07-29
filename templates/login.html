@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <ul class="nav">
+        <li class="navL" id="home-btn"><a href="/">Photo Share</a></li>
+        <li class="navL"><a href="/search">Search</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="navR" id="dropdown">
+                <a href="/profile">{{ current_user.name }}</a>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/albums">Albums</a>
+                    <a href="/my_friends">Friends</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </li>
+            <li class="navR"><a href="/upload">Upload</a></li>
+        {% else %}
+            <li class="navR"><a href="/login">Log In</a></li>
+            <li class="navR"><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+    {% if message %}
+        {{ message }} <br>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
+        <h1>You are already logged in.</h1>
+    {% else %}
+        <form action="login" method="POST">
+            E-mail: <input type="email" name="email"><br>
+            Password: <input type="password" name="password"><br>
+            <input type="submit" value="Log In">
+        </form>
+        <div>
+            If you don't have an account, please <a href="/register">register</a>.
+        </div>
+    {% endif %}
+</body>
+</html>

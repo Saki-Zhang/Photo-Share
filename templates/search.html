@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Search</title>
+	<link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+	<ul class="nav">
+        <li class="navL" id="home-btn"><a href="/">Photo Share</a></li>
+        <li class="navL"><a href="/search">Search</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="navR" id="dropdown">
+                <a href="/profile">{{ current_user.name }}</a>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/albums">Albums</a>
+                    <a href="/my_friends">Friends</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </li>
+            <li class="navR"><a href="/upload">Upload</a></li>
+        {% else %}
+            <li class="navR"><a href="/login">Log In</a></li>
+            <li class="navR"><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="search_style">
+        <form action="/search" method = "POST">
+            <div id="searchForPhotos">
+                <p>Search for Photos:</p>
+                <p>Tags: <input type="text" name="searchTags"/></p>
+                <span class="radioBtn">
+                    <label class="container">
+                        <input id="rbAll" type="radio" checked="checked" name="radioAll" onclick="validateSelection(this.id)">
+                        All photos
+                    </label>
+                    <label class="container">
+                        <input id="cbMy" type="radio" name="checkMy" onclick="validateSelection(this.id)">
+                        My Photos
+                    </label>
+                </span>
+                <p><input type="submit" name="Search" value="Search"/></p>
+            </div>
+
+            <div id="popularTags">
+                <ul class="topTags">
+                    <li><div class="topTag"><b>Most Popular Tags:</b></div></li>
+                    {% if top_tags %}
+                        {% for tag in top_tags %}
+                            <li><div class="topTag2"><a href="/search" name="topTag" value="{{ tag }}">{{ tag }}</a></div></li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </form>
+        <div id="searchResultPhotos">
+            <h2>Results</h2>
+            {% if photos %}
+                <table>
+                    {% for photo_batch in photos|batch(3) %}
+                        <tr>
+                            {% for photo in photo_batch %}
+                                <td>
+                                    <a href="/photo/{{ photo[1] }}">
+                                        <img id="{{ photo[0] }}"
+                                         class="tablePhoto"
+                                         name="photo"
+                                         src="{{ url_for('get_photo', filename=photo[1]) }}"
+                                         alt="{{ photo[0] }}">
+                                    </a>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>There are currently no photos for this search.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>

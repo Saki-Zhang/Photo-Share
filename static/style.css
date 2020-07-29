@@ -1,0 +1,334 @@
+* {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#commenter {
+    color: black;
+}
+
+/******** Navigation bar css ********/
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: cornflowerblue;
+    font-size: 1.1em;
+    font-family: Georgia, Times, "Times New Roman", serif;
+}
+
+#home-btn {
+    background-color: dodgerblue;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.nav li {
+    display: inline-block;
+}
+
+.nav li.navR {
+    float: right;
+}
+
+.nav li.navL {
+    float: left;
+}
+
+.nav li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-right: solid;
+}
+
+.nav li a:hover {
+    background-color: lightskyblue;
+}
+
+#dropdown {
+    display: inline-block;
+    min-width: 5em;
+    padding: 0;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-left: none;
+    text-align: left;
+}
+
+.dropdown-content a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 0px 0px;
+    text-decoration: none;
+    width: 80%;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+#dropdown:hover .dropdown-content {
+    background-color: cornflowerblue;
+    display: block;
+}
+/******** Navigation bar css ends ********/
+
+#invalid-email {
+    color: red;
+}
+
+#photo {
+    width: 500px;
+    height: 300px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+}
+
+.invisible {
+    display: none;
+}
+
+#divAlbumCreate {
+    margin: 10px 20px;
+    float: right;
+}
+
+#btnOpenAlbumCreate {
+    position: relative;
+    padding: 10px 40px;
+    background-color: lightskyblue;
+    color: black;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#albumCreate {
+    display: none;
+    margin: 10px 0px 0px 0px;
+    width: 215px;
+    height: 60px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+    border-radius: 5px;
+}
+
+#albumCreate input {
+    margin: 5px 5px 5px 5px;
+    font-size: 0.8em;
+}
+
+#goToFriendSearch {
+    margin: 10px 20px;
+    float: right;
+}
+
+#goToFriendSearchBtn {
+    position: relative;
+    padding: 10px 40px;
+    background-color: lightskyblue;
+    color: black;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#recommendedFriends {
+    margin: 10px 20px;
+    padding: 10px 40px;
+    float: right;
+    width: 250px;
+    height: 100px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #000000;
+    border-radius: 5px;
+}
+
+.recFriends {
+    margin: 0px;
+    padding: 0px;
+}
+
+.recFriends .recUser {
+    margin: 5px 5px 5px 5px;
+    float: left;
+}
+
+#goToFriendSearch {
+    margin: 10px 20px;
+    float: right;
+}
+
+#goToFriendSearchBtn {
+    position: relative;
+    padding: 10px 40px;
+    background-color: lightskyblue;
+    color: black;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#recommendedFriends {
+    margin: 10px 20px;
+    padding: 10px 40px;
+    float: right;
+    width: 250px;
+    height: 100px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #000000;
+    border-radius: 5px;
+}
+
+.recFriends {
+    margin: 0px;
+    padding: 0px;
+}
+
+.recFriends .recUser {
+    margin: 5px 5px 5px 5px;
+    float: left;
+}
+
+#error {
+    padding: 70px 0;
+    text-align: center;
+}
+
+/******** Homepage style css ********/
+div.homepage_style {
+    width: 100%;
+    overflow: hidden;
+}
+
+#topPhotos {
+    float: left;
+    width: 65%;
+    margin: 0;
+    margin-left: 1em;
+    padding: 1em;
+    border-style: none;
+    border-bottom: 2px solid black;
+    border-radius: 0%;
+    clear: left;
+    overflow: hidden;
+}
+
+#topPhotos img {
+    width: 200px;
+    height: 200px;
+}
+
+#mayLikePhotos {
+    float: left;
+    width: 65%;
+    margin: 0;
+    padding: 1em;
+    clear: left;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000000;
+    border-radius: 5px;
+}
+
+#mayLikePhotos img {
+    width: 200px;
+    height: 200px;
+}
+
+#topUsers {
+    float:right;
+    min-width: 17%;
+    max-width: 25%;
+    margin-left: 5%;
+    margin-right: 1em;
+    margin-top: 1em;
+    padding: 1em;
+    overflow: hidden;
+    clear: right;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #000000;
+    border-radius: 5px;
+}
+
+#topUsers .contributors {
+    margin: 0px;
+    padding: 0px;
+}
+
+#topUsers .contributors .topUser {
+    float: left;
+}
+
+#topUsers .contributors .topUser2 {
+    margin-left: 0.2em;
+    float: left;
+    max-width: 50%;
+    clear: left;
+}
+
+#topUsers .contributors .points {
+    float: right;
+}
+
+#topUsers .contributors .points2 {
+    margin-right: 0.7em;
+    float: right;
+    clear: right;
+}
+
+#popularTags {
+    float: right;
+    min-width: 17%;
+    max-width: 25%;
+    margin-left: 5%;
+    margin-right: 1em;
+    margin-top: 1em;
+    padding: 1em;
+    overflow: hidden;
+    clear: right;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #000000;
+    border-radius: 5px;
+}
+
+#popularTags .topTags {
+    margin: 0px;
+    padding: 0px;
+}
+
+#popularTags .topTags .topTag {
+    float: left;
+}
+
+#popularTags .topTags .topTag2 {
+    margin: 5px 5px 5px 5px;
+    float: left;
+    clear: left;
+}
+
+#popularTags .topTags .topTag2 a{
+    color: black;
+}
+/******** Homepage style css ends ********/

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <ul class="nav">
+        <li class="navL" id="home-btn"><a href="/">Photo Share</a></li>
+        <li class="navL"><a href="/search">Search</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="navR" id="dropdown">
+                <a href="/profile">{{ current_user.name }}</a>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/albums">Albums</a>
+                    <a href="/my_friends">Friends</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </li>
+            <li class="navR"><a href="/upload">Upload</a></li>
+        {% else %}
+            <li class="navR"><a href="/login">Log In</a></li>
+            <li class="navR"><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+
+    {% if photo %}
+        <img id="photo" src="{{ url_for('get_photo', filename=photo[2]) }}" alt="Can not display photo." onclick="window.open(this.src)">
+
+        <br/>
+
+        {% if current_user.id == photo[4] %}
+            <form id="delete_photo_form" method="POST" action="/photo/{{ photo[0] }}">
+                <button id="btnDeletePhoto" name="photoBtn" type="submit" onclick="confirmPhotoDelete()" value="delete">Delete Photo</button>
+            </form>
+        {% endif %}
+
+        <br/>
+
+        <form id="like_form" method="POST" action="/photo/{{ photo[0] }}">
+            <p>Likes: {{ likes|length }}</p>
+            {% if current_user.is_authenticated %}
+                {% if current_user.id != photo[4] %}
+                    {% if not liked %}
+                        <button id="btnLikePhoto" name="photoBtn" type="submit" value="like">Like</button>
+                    {% else %}
+                        <button id="btnUnLikePhoto" name="photoBtn" type="submit" value="unlike">Unlike</button>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </form>
+
+
+        <br/>
+
+        <div id="divTags">
+            <button id="btnTags" onclick="showDiv(this.id, 'photoTags')">Show Tags</button>
+            <div id="photoTags" style="display:none;">
+                {% if tags %}
+                    {% for tag in tags %}
+                        <span><a href="/search/{{ tag[0] }}">{{ tag[0] }}</a></span>
+                    {% endfor %}
+                {% else %}
+                    <p>None</p>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <br/>
+        <div id="divLikes">
+            <button id="btnLikes" onclick="showDiv(this.id, 'photoLikes')">Show Likes</button>
+            <div id="photoLikes" style="display:none;">
+                {% if likes %}
+                    {% for like in likes %}
+                        {{ like[0] }} {{ like[1] }}<br>
+                {% endfor %}
+                {% else %}
+                    <p>None</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <br/>
+
+        {% if current_user.id != photo[4] %}
+            <form method="POST" action="/photo/{{ photo[0] }}">
+                Characters left: <label id="counter">500</label><br/>
+
+                <textarea id="comment" name="commentText" style="resize:none" onkeyup="changeCharCounter()" rows="5"
+                          cols="100" maxlength="500" placeholder="Enter comment here..."></textarea>
+                <br/>
+                <button id="btnSubmitComment" name="photoBtn" type="submit" value="comment">Submit Comment</button>
+            </form>
+        {% endif %}
+
+        {% if comments %}
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        {{comment[1]}}<br>
+                        <b>{{ comment[2] }} {{ comment[3] }}</b> {{ comment[0] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>None</p>
+        {% endif %}
+    {% else %}
+        <h1>No photo to display.</h1>
+    {% endif %}
+
+    <script src="../static/script.js"></script>
+</body>
+</html>

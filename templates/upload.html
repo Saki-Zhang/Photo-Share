@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Upload</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <ul class="nav">
+        <li class="navL" id="home-btn"><a href="/">Photo Share</a></li>
+        <li class="navL"><a href="/search">Search</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="navR" id="dropdown">
+                <a href="/profile">{{ current_user.name }}</a>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/albums">Albums</a>
+                    <a href="/my_friends">Friends</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </li>
+            <li class="navR"><a href="/upload">Upload</a></li>
+        {% else %}
+            <li class="navR"><a href="/login">Log In</a></li>
+            <li class="navR"><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
+
+    {% if current_user.is_authenticated %}
+        {% if albums %}
+            <div class="title">
+                <h1>Upload a photo to your album.</h1>
+            </div>
+            <form method="POST" enctype="multipart/form-data" action="/upload">
+                <label for="photo">Select photo:</label>
+                <input type="file" name="photo" required="true"/><br/>
+                <label for="caption">Please caption:</label>
+                <input type="text" name="caption" required="true"/><br/>
+                <label for="album">Album to save to:</label>
+                <select name="album" required="true">
+                    {% for album in albums %}
+                        <option value="{{ album[0] }}">{{ album[1] }}</option>
+                    {% endfor %}
+                </select>
+                <label for="album">Or you can <a href="/albums">create a new album</a>.</label><br/>
+                <label for="tag">Please tag (One word with a space between each tag):</label>
+                <input id="tag" type="text" name="tag" placeholder="Tags" required="true"/><br/>
+                <input type="submit" value="Upload"/>
+            </form>
+        {% elif message %}
+            <h1>{{ message }}</h1>
+        {% else %}
+            <h1>Please <a href="/albums">create an album</a>.</h1>
+        {% endif %}
+    {% else %}
+        <h1>Please login.</h1>
+    {% endif %}
+
+    <script src="static/script.js"></script>
+</body>
+</html>
